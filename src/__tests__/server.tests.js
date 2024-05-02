@@ -33,7 +33,7 @@ describe('API Server', () => {
       const foodData = { name: 'Apple', type: 'Fruit' };
       const response = await mockRequest.post('/foods').send(foodData);
       expect(response.status).toBe(201);
-      expect(response.body.id).toBeDefined();
+      expect(response.body.food_id).toBeDefined();
       expect(response.body.name).toBe('Apple');
       expect(response.body.type).toBe('Fruit');
     });
@@ -63,6 +63,13 @@ describe('API Server', () => {
       const response = await mockRequest.delete('/foods/1');
       expect(response.status).toBe(204);
     });
+
+    describe('GET /foods/:id', () => {
+      it('should return 404 for a non-existing food', async () => {
+        const response = await mockRequest.get('/foods/9999'); // Assuming 9999 is a non-existing ID
+        expect(response.status).toBe(404);
+      });
+    });
   });
 
   // Tests for animals
@@ -71,7 +78,7 @@ describe('API Server', () => {
       const animalData = { name: 'Lion', habitat: 'Savannah' };
       const response = await mockRequest.post('/animals').send(animalData);
       expect(response.status).toBe(201);
-      expect(response.body.id).toBeDefined();
+      expect(response.body.animal_id).toBeDefined();
       expect(response.body.name).toBe('Lion');
       expect(response.body.habitat).toBe('Savannah');
     });
@@ -101,6 +108,14 @@ describe('API Server', () => {
       const response = await mockRequest.delete('/animals/1');
       expect(response.status).toBe(204);
     });
+
+    describe('GET /animals/:id', () => {
+      it('should return 404 for a non-existing animal', async () => {
+        const response = await mockRequest.get('/animals/9999'); // Assuming 9999 is a non-existing ID
+        expect(response.status).toBe(404);
+      });
+    });
+
   });
 
 });

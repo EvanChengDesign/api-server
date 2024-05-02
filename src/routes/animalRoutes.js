@@ -60,7 +60,7 @@ router.put('/animals/:id', async (req, res, next) => {
 router.delete('/animals/:id', async (req, res, next) => {
   try {
     const result = await Animal.destroy({ where: { animal_id: req.params.id } });
-    res.status(200).send(`Deleted ${result} item(s)`);
+    res.status(204).send(`Deleted ${result} item(s)`);
   } catch (error) {
     next(error);
   }

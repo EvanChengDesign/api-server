@@ -59,7 +59,7 @@ router.put('/foods/:id', async (req, res, next) => {
 router.delete('/foods/:id', async (req, res, next) => {
   try {
     const result = await Food.destroy({ where: { food_id: req.params.id } });
-    res.status(200).send(`Deleted ${result} item(s)`);
+    res.status(204).send(`Deleted ${result} item(s)`);
   } catch (error) {
     next(error);
   }
