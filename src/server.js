@@ -1,3 +1,4 @@
+// server.js
 'use strict';
 
 const express = require('express');
@@ -8,15 +9,17 @@ const app = express();
 const notFoundHandler = require('./handlers/404.js');
 const errorHandler = require('./handlers/500.js');
 
-const peopleRoutes = require('./routes/people.js');
+const foodRoutes = require('./routes/foodRoutes.js');
+const animalRoutes = require('./routes/animalRoutes.js');
 
 app.use(cors());
 app.use(express.json());
 
-app.use(peopleRoutes);
+app.use(foodRoutes);
+app.use(animalRoutes);
 
-// Force an error for the tests
-app.get('/broken', (req,res,next) => next('whoops!'));
+// Error Handling
+app.get('/broken', (req, res, next) => next(new Error('500 – Internal Server Error')));
 
 app.use('*', notFoundHandler);
 app.use(errorHandler);
@@ -28,3 +31,4 @@ function start(port) {
 }
 
 module.exports = { app, start };
+
