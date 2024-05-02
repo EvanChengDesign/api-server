@@ -65,4 +65,4 @@ Testing is conducted using integration tests located in `__tests__/server.test.j
 
 The server is deployed to the cloud. The live API can be accessed at:
 
-[Render URL](postgres://evancheng:oW0au80BHy8ZUsos3GrBQahMJdP4fdfB@dpg-copasr4f7o1s73c8ukk0-a.oregon-postgres.render.com/api_server_db_ek8r)
+## [Render URL](postgres://evancheng:oW0au80BHy8ZUsos3GrBQahMJdP4fdfB@dpg-copasr4f7o1s73c8ukk0-a.oregon-postgres.render.com/api_server_db_ek8r)
