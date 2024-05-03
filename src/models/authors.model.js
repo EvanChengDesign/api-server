@@ -9,6 +9,9 @@ const Author = (sequelize, DataTypes) => sequelize.define('Author', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+}, {
+  timestamps: false,  // Disable automatic timestamp generation
 });
 
 module.exports = Author;
+

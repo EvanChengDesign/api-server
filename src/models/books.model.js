@@ -13,10 +13,12 @@ const Books = (sequelize, DataTypes) => sequelize.define('Books', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Authors',
+      model: 'Authors', // Ensure this matches the table name as Sequelize sees it
       key: 'id',
     },
   },
+}, {
+  timestamps: false,  // Disable automatic timestamp generation
 });
 
 module.exports = Books;
