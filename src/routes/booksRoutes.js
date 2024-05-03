@@ -5,7 +5,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { Books, Authors } = require('../models/index.js');  // Adjusting model imports
+const { Authors } = require('../models/index.js');  // Adjusting model imports
+const { Books } = require('../models/books.model.js'); // Adjust the path as necessary
 
 const Model = Books;  // Focusing on Books model
 
