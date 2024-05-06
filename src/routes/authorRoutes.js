@@ -1,13 +1,7 @@
-'use strict';
-
-// All routing and data management for "authors"
-
 const express = require('express');
 const router = express.Router();
 
-const { Authors, Books } = require('../models/index.js');  // Adjusting model imports
-
-const Model = Authors;  // Focusing on Authors model
+const { Authors, Books } = require('../models/index.js');
 
 // RESTful route definitions
 router.get('/', getAll);
@@ -19,8 +13,8 @@ router.delete('/:id', deleteRecord);
 // ROUTE HANDLERS
 async function getAll(request, response) {
   try {
-    let data = await Model.read(null, {
-      include: [{ model: Books }],  // Include Books related to Authors
+    let data = await Authors.read(null, {
+      include: [{ model: Books }]  // Ensure Books is directly referred as a Sequelize model
     });
     response.status(200).json(data);
   } catch (error) {
@@ -31,8 +25,8 @@ async function getAll(request, response) {
 async function getOne(request, response) {
   let id = request.params.id;
   try {
-    let data = await Model.read(id, {
-      include: [{ model: Books }],  // Include Books when fetching a specific Author
+    let data = await Authors.read(id, {
+      include: [{ model: Books }]  // Ensure Books is directly referred as a Sequelize model
     });
     response.status(200).json(data);
   } catch (error) {
@@ -43,7 +37,7 @@ async function getOne(request, response) {
 async function createRecord(request, response) {
   let data = request.body;
   try {
-    let newRecord = await Model.create(data);
+    let newRecord = await Authors.create(data);
     response.status(201).json(newRecord);
   } catch (error) {
     response.status(500).json({ error: error.message });
@@ -54,9 +48,7 @@ async function updateRecord(request, response) {
   let id = request.params.id;
   let data = request.body;
   try {
-    let updatedRecord = await Model.update(data, {
-      where: { id: id },
-    });
+    let updatedRecord = await Authors.update(id, data);
     response.status(200).json(updatedRecord);
   } catch (error) {
     response.status(500).json({ error: error.message });
@@ -66,10 +58,12 @@ async function updateRecord(request, response) {
 async function deleteRecord(request, response) {
   let id = request.params.id;
   try {
-    let deletedRecord = await Model.destroy({
-      where: { id: id },
-    });
-    response.status(204).send();
+    let deletedRecord = await Authors.delete(id);
+    if (deletedRecord) {
+      response.status(200).json({ message: 'Author deleted successfully' });
+    } else {
+      response.status(404).json({ message: 'Author not found' });
+    }
   } catch (error) {
     response.status(500).json({ error: error.message });
   }
