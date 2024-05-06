@@ -27,12 +27,12 @@ authorsModel.hasMany(booksModel, {foreignKey: 'authorId', sourceKey: 'id'});
 booksModel.belongsTo(authorsModel, {foreignKey: 'authorId', targetKey: 'id'});
 
 const authorsCollection = new Collection(authorsModel);
-const booksCollection = new Collection(booksModel);
 
 module.exports = {
   db: sequelize,
   Authors: authorsCollection,
-  Books: booksCollection,
+  Books: booksModel, // Export the Sequelize model directly
   Food: foodModel(sequelize, DataTypes),
   Animal: animalModel(sequelize, DataTypes),
 };
+

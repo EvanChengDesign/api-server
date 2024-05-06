@@ -6,7 +6,7 @@ const express = require('express');
 const router = express.Router();
 
 const { Authors } = require('../models/index.js');  // Adjusting model imports
-const { Books } = require('../models/books.model.js'); // Adjust the path as necessary
+const { Books } = require('../models/index.js'); // Adjust the path as necessary
 
 const Model = Books;  // Focusing on Books model
 
@@ -20,8 +20,8 @@ router.delete('/:id', deleteRecord);
 // ROUTE HANDLERS
 async function getAll(request, response) {
   try {
-    let data = await Model.findAll({  // Using findAll for getting all records
-      include: [{ model: Authors }],  // Include Authors related to Books
+    let data = await Model.findAll({
+      include: [{ model: Authors.model, attributes: ['id', 'firstName', 'lastName'] }],
     });
     response.status(200).json(data);
   } catch (error) {
@@ -29,17 +29,20 @@ async function getAll(request, response) {
   }
 }
 
+
+
 async function getOne(request, response) {
   let id = request.params.id;
   try {
-    let data = await Model.findByPk(id, {  // Using findByPk for fetching a specific record by primary key
-      include: [{ model: Authors }],  // Include Author when fetching a specific Book
+    let data = await Model.findByPk(id, {
+      include: [{ model: Authors.model, attributes: ['id', 'firstName', 'lastName'] }],
     });
     response.status(200).json(data);
   } catch (error) {
     response.status(500).json({ error: error.message });
   }
 }
+
 
 async function createRecord(request, response) {
   let data = request.body;
@@ -70,8 +73,15 @@ async function deleteRecord(request, response) {
     let deletedRecord = await Model.destroy({
       where: { id: id },
     });
-    response.status(204).send();
+    if (deletedRecord === 1) {
+      // Book was successfully deleted
+      response.status(200).json({ message: 'Book deleted successfully' });
+    } else {
+      // Book with the specified id was not found
+      response.status(404).json({ message: 'Book not found' });
+    }
   } catch (error) {
+    // Internal server error occurred
     response.status(500).json({ error: error.message });
   }
 }

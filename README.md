@@ -67,3 +67,18 @@ The server is deployed to the cloud. The live API can be accessed at:
 [Render URL](postgres://evancheng:oW0au80BHy8ZUsos3GrBQahMJdP4fdfB@dpg-copasr4f7o1s73c8ukk0-a.oregon-postgres.render.com/api_server_db_ek8r)
 (postgres://evancheng:oW0au80BHy8ZUsos3GrBQahMJdP4fdfB@dpg-copasr4f7o1s73c8ukk0-a.oregon-postgres.render.com/api_server_db_ek8r)
 
+
+# LAB 4 - Collections and relational Data Models:
+
+![UML](./RelationalDataModels.png)
+
+### Who was your partner?
+Amanda Marquez & Wajiha Khan
+
+### What was your key takeaway?:
+
+In Node.js, relational data refers to structured data that is organized in tables with defined relationships, typically managed using SQL databases. Collections, often used in the context of NoSQL databases like MongoDB, represent groups of data items that may not have fixed schemas but are indexed for efficient querying and retrieval.
+
+### PR:
+
+https://github.com/EvanChengDesign/api-server/pull/5
